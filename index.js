@@ -23,8 +23,10 @@ const sleep = (milliseconds) => {
     //     console.log(title)
     // }
 
-    let isBtnDisabled = false;
-    while (!isBtnDisabled) {
+    // let isBtnDisabled = false;
+    // while (!isBtnDisabled) {
+    let isLastPage = false;
+    while (!isLastPage) {
         await page.waitForSelector('[data-cel-widget="search_result_0"]');
         const productsHandles = await page.$$('div.s-main-slot.s-result-list.s-search-results.sg-row > .s-result-item');
         
@@ -77,15 +79,15 @@ const sleep = (milliseconds) => {
             }
 
         }
-        await page.waitForSelector('svg[aria-disabled="true"]', { visible: true , timeout: 120000});
-        const is_disabled = (await page.$('svg[focusable="false"]')) !== null;
-        isBtnDisabled = is_disabled;
-        if (!is_disabled) {
-            await Promise.all([
-            page.click('svg[focusable="false"]'),
-            page.waitForNavigation({ waitUntil: "networkidle2" }),
-            ]);
-        }
+        // await page.waitForSelector('svg[aria-disabled="true"]', { visible: true });
+        // const is_disabled = (await page.$('svg[focusable="false"]')) !== null;
+        // isBtnDisabled = is_disabled;
+        // if (!is_disabled) {
+        //     await Promise.all([
+        //         page.click('svg[focusable="false"]'),
+        //         page.waitForNavigation({ waitUntil: "networkidle2" }),
+        //     ]);
+        // }
         // await page.waitForSelector("span.s-pagination-item.s-pagination-next", { visible: true });
         // const is_disabled = (await page.$("span.s-pagination-item.s-pagination-next.s-pagination-disabled")) !== null;
 
@@ -97,9 +99,31 @@ const sleep = (milliseconds) => {
         // ]);
         // }
 
+        //2
+
+        // await page.waitForSelector("ul.a-pagination > li.a-last > a", { visible: true });
+        // const is_disabled = (await page.$("svg[aria-disabled='true']")) !== null;
+
+        // isBtnDisabled = is_disabled;
+        // if (!is_disabled) {
+        // await Promise.all([
+        //     page.click("ul.a-pagination > li.a-last > a"),
+        //     page.waitForNavigation({ waitUntil: "networkidle2", timeout: 180000 }), // Increased timeout to 180 seconds (180,000 milliseconds)
+        // ]);
+        // }
+        const nextButton = await page.$("ul.a-pagination > li.a-last > a");
+        if (nextButton) {
+        await Promise.all([
+            page.evaluate((btn) => btn.click(), nextButton),
+            page.waitForNavigation({ waitUntil: "networkidle2" }),
+        ]);
+        } else {
+        isLastPage = true;
+        }
+
     }
 
 
-    // await browser.close();
+    await browser.close();
 })();
 
