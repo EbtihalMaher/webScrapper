@@ -37,7 +37,7 @@ const sleep = (milliseconds) => {
             try {
             const titleElement = await producthandle.$('h2 > a > span');
             if (titleElement) {
-                const title = await titleElement.evaluate(el => el.textContent);
+                title = await titleElement.evaluate(el => el.textContent);
                 console.log(title);
             } else {
                 console.log('Title element not found for this product');
@@ -48,7 +48,7 @@ const sleep = (milliseconds) => {
             try {
                 const priceElement = await producthandle.$('.a-price > .a-offscreen');
                 if (priceElement) {
-                    const price = await priceElement.evaluate(el => el.textContent);
+                    price = await priceElement.evaluate(el => el.textContent);
                     console.log(price);
                 } else {
                     console.log('Price element not found for this product');
@@ -59,7 +59,7 @@ const sleep = (milliseconds) => {
             try {
                 const imgElement = await producthandle.$('.s-image');
                 if (imgElement) {
-                    const img = await imgElement.evaluate(el => el.getAttribute("src"));
+                    img = await imgElement.evaluate(el => el.getAttribute("src"));
                     console.log(img);
                 } else {
                     console.log('Image element not found for this product');
@@ -77,7 +77,7 @@ const sleep = (milliseconds) => {
             }
 
         }
-        await page.waitForSelector('svg[focusable="false"]', { visible: true , timeout: 120000});
+        await page.waitForSelector('svg[aria-disabled="true"]', { visible: true , timeout: 120000});
         const is_disabled = (await page.$('svg[focusable="false"]')) !== null;
         isBtnDisabled = is_disabled;
         if (!is_disabled) {
@@ -86,6 +86,16 @@ const sleep = (milliseconds) => {
             page.waitForNavigation({ waitUntil: "networkidle2" }),
             ]);
         }
+        // await page.waitForSelector("span.s-pagination-item.s-pagination-next", { visible: true });
+        // const is_disabled = (await page.$("span.s-pagination-item.s-pagination-next.s-pagination-disabled")) !== null;
+
+        // isBtnDisabled = is_disabled;
+        // if (!is_disabled) {
+        // await Promise.all([
+        //     page.click("span.s-pagination-item.s-pagination-next"),
+        //     page.waitForNavigation({ waitUntil: "networkidle2" }),
+        // ]);
+        // }
 
     }
 
