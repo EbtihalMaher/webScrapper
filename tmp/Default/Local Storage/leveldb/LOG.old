@@ -1,18 +1,5 @@
-2023/05/10-19:26:56.899 c74 Reusing MANIFEST C:\Users\pc\webScrapper\tmp\Default\Local Storage\leveldb/MANIFEST-000001
-2023/05/10-19:26:56.902 c74 Recovering log #24
-2023/05/10-19:26:56.904 c74 Level-0 table #26: started
-2023/05/10-19:26:56.916 c74 Level-0 table #26: 95212 bytes OK
-2023/05/10-19:26:56.917 c74 Recovering log #25
-2023/05/10-19:26:56.920 c74 Level-0 table #27: started
-2023/05/10-19:26:56.948 c74 Level-0 table #27: 108138 bytes OK
-2023/05/10-19:26:56.957 c74 Delete type=0 #24
-2023/05/10-19:26:56.957 c74 Delete type=0 #25
-2023/05/10-19:26:56.958 4a30 Compacting 4@0 + 1@1 files
-2023/05/10-19:26:56.981 4a30 Generated table #29@0: 432 keys, 122614 bytes
-2023/05/10-19:26:56.981 4a30 Compacted 4@0 + 1@1 files => 122614 bytes
-2023/05/10-19:26:56.982 4a30 compacted to: files[ 0 1 1 0 0 0 0 ]
-2023/05/10-19:26:56.984 4a30 Delete type=2 #18
-2023/05/10-19:26:56.984 4a30 Delete type=2 #20
-2023/05/10-19:26:56.984 4a30 Delete type=2 #23
-2023/05/10-19:26:56.984 4a30 Delete type=2 #26
-2023/05/10-19:26:56.984 4a30 Delete type=2 #27
+2023/05/17-19:23:54.934 4708 Reusing MANIFEST C:\Users\pc\webScrapper\tmp\Default\Local Storage\leveldb/MANIFEST-000001
+2023/05/17-19:23:54.948 4708 Recovering log #28
+2023/05/17-19:23:54.954 4708 Level-0 table #31: started
+2023/05/17-19:23:54.967 4708 Level-0 table #31: 139238 bytes OK
+2023/05/17-19:23:54.982 4708 Delete type=0 #28
