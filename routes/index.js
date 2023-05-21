@@ -1,4 +1,4 @@
-const webRouter = require('./web')
+const productRouter = require('./product')
 const authRouter = require('./auth')
 
 module.exports = (app) => {
@@ -9,7 +9,7 @@ module.exports = (app) => {
         })
     })
 
-    app.use('/webs', webRouter)
+    app.use('/products', productRouter)
 
     app.use('/auth', authRouter);
 }

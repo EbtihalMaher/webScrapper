@@ -84,50 +84,50 @@ class User {
                 resolve(error)
             }
 
-            // find user
-            dbConnection('users', async (collection) => {
-                try {
-                    const dbResult = await collection.aggregate([
-                        {
-                            $lookup: {
-                                from: 'scrappers',
-                                localField: '_id',
-                                foreignField: '_user_id',
-                                as: 'scrapper'
-                            }
-                        },
-                        {
-                            $match: {
-                                username: loginData.username
-                            }
-                        },
-                        {
-                            $limit: 1
-                        }
-                    ]).toArray()
+            // // find user
+            // dbConnection('users', async (collection) => {
+            //     try {
+            //         const dbResult = await collection.aggregate([
+            //             {
+            //                 $lookup: {
+            //                     from: 'scrappers',
+            //                     localField: '_id',
+            //                     foreignField: '_user_id',
+            //                     as: 'scrapper'
+            //                 }
+            //             },
+            //             {
+            //                 $match: {
+            //                     username: loginData.username
+            //                 }
+            //             },
+            //             {
+            //                 $limit: 1
+            //             }
+            //         ]).toArray()
 
 
-                    if (dbResult) {
-                        const user = dbResult[0]
+            //         if (dbResult) {
+            //             const user = dbResult[0]
 
-                        if (!user || !compareSync(loginData.password, user.password)) {
-                            const error = new Error('Wrong or not found username or password')
-                            error.statusCode = 401
-                            resolve(error)
-                        }
+            //             if (!user || !compareSync(loginData.password, user.password)) {
+            //                 const error = new Error('Wrong or not found username or password')
+            //                 error.statusCode = 401
+            //                 resolve(error)
+            //             }
 
-                        user.scrapper = (user.scrapper) ? user.scrapper[0] : null
-                        resolve(user)
-                    } else {
-                        const error = new Error('Wrong or not found username or password')
-                        error.statusCode = 401
-                        resolve(error)
-                    }
+            //             user.scrapper = (user.scrapper) ? user.scrapper[0] : null
+            //             resolve(user)
+            //         } else {
+            //             const error = new Error('Wrong or not found username or password')
+            //             error.statusCode = 401
+            //             resolve(error)
+            //         }
 
-                } catch (err) {
-                    reject(err)
-                }
-            })
+            //     } catch (err) {
+            //         reject(err)
+            //     }
+            // })
         })
     }
 }

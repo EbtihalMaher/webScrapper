@@ -27,25 +27,25 @@ const signup = (req, res, next) => {
 
     // insert user
     user.save((status) => {
-        if (status.status) {
-            const scrapper = new Scrapper({
-                _user_id: status._user_id,
-                name: user.userData.name
-            })
+        // if (status.status) {
+        //     const scrapper = new Scrapper({
+        //         _user_id: status._user_id,
+        //         name: user.userData.name
+        //     })
 
-            scrapper.save((status) => {
-                if (status.status) {
-                    res.status(201).json({
-                        status: true,
-                        message: "User has been created successfully"
-                    })
-                } else {
-                    next(createError(500, status.message))
-                }
+            // scrapper.save((status) => {
+        if (status.status) {
+            res.status(201).json({
+                status: true,
+                message: "User has been created successfully"
             })
         } else {
             next(createError(500, status.message))
         }
+        //     })
+        // } else {
+        //     next(createError(500, status.message))
+        // }
     });
 }
 
