@@ -1,4 +1,5 @@
 module.exports = {
-    webController: require('./web'),
-    authController: require('./auth')
+
+    authController: require('./auth'),
+    productController: require('./product'),
 }

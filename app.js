@@ -21,9 +21,13 @@ middleware.global(app);
  */
 routes(app)
 
+//route not found error handler
+
 app.use((req, res, next) => {
     next(createError(404));
 })
+
+//Error Handler (4 Parameter)
 
 app.use((error, req, res, next) => {
     console.log(error)

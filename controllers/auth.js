@@ -1,4 +1,4 @@
-const { User, Scrapper } = require('../models')
+const { User} = require('../models')
 const createError = require('http-errors')
 const jwt = require('jsonwebtoken')
 const {readFileSync} = require('fs')
