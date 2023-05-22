@@ -1,3 +1,5 @@
-2023/05/20-16:44:08.515 4078 Reusing MANIFEST C:\Users\pc\webScrapper\tmp\Default\Local Storage\leveldb/MANIFEST-000001
-2023/05/20-16:44:08.550 4078 Recovering log #32
-2023/05/20-16:44:08.556 4078 Reusing old log C:\Users\pc\webScrapper\tmp\Default\Local Storage\leveldb/000032.log 
+2023/05/22-12:49:26.314 2fbc Reusing MANIFEST C:\Users\pc\webScrapper\tmp\Default\Local Storage\leveldb/MANIFEST-000001
+2023/05/22-12:49:26.317 2fbc Recovering log #35
+2023/05/22-12:49:26.317 2fbc Level-0 table #37: started
+2023/05/22-12:49:26.339 2fbc Level-0 table #37: 18971 bytes OK
+2023/05/22-12:49:26.347 2fbc Delete type=0 #35

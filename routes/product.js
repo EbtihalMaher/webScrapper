@@ -1,12 +1,13 @@
 const { Router } = require('express')
-const { ProductController } = require('../controllers')
+const { productController } = require('../controllers')
 const { auth } = require('../middlewares')
 
 const router = Router()
-
 router
-    .get('/', auth, ProductController.getProducts)
-    .get('/pages-count', ProductController.getProductsPagesCount)
-    .get('/:id', ProductController.getOneProduct);
+    .get('/', auth, productController.getProducts)
+    .get('/pages-count', productController.getProductsPagesCount)
+    .get('/:id', productController.getOneProduct);
 
 module.exports = router
+
+
