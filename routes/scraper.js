@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const puppeteer = require('puppeteer');
+const {dbConnection}=require('../configurations')
 
 const sleep = (milliseconds) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -26,16 +27,15 @@ router.post('/', async (req, res, next) => {
             const productsHandles = await page.$$('div.s-main-slot.s-result-list.s-search-results.sg-row > .s-result-item');
 
             for (const producthandle of productsHandles) {
-                let title = "Null";
-                let price = "Null";
-                let img = "Null";
-
+                const product ={
+                    title:"" , price:"" , img:""
+                }
                 // Title
                 try {
                     const titleElement = await producthandle.$('h2 > a > span');
                     if (titleElement) {
-                        title = await titleElement.evaluate(el => el.textContent);
-                        console.log(title);
+                        product.title = await titleElement.evaluate(el => el.textContent);
+                        console.log(product.title);
                     } else {
                         console.log('Title element not found for this product');
                     }
@@ -45,8 +45,8 @@ router.post('/', async (req, res, next) => {
                 try {
                     const priceElement = await producthandle.$('.a-price > .a-offscreen');
                     if (priceElement) {
-                        price = await priceElement.evaluate(el => el.textContent);
-                        console.log(price);
+                        product.price = await priceElement.evaluate(el => el.textContent);
+                        console.log(product.price);
                     } else {
                         console.log('Price element not found for this product');
                     }
@@ -56,24 +56,34 @@ router.post('/', async (req, res, next) => {
                 try {
                     const imgElement = await producthandle.$('.s-image');
                     if (imgElement) {
-                        img = await imgElement.evaluate(el => el.getAttribute("src"));
-                        console.log(img);
+                        product.img = await imgElement.evaluate(el => el.getAttribute("src"));
+                        console.log(product.img);
                     } else {
                         console.log('Image element not found for this product');
                     }
+                    
                 } catch (error) {}
 
-                if (title !== "Null") {
-                    fs.appendFile(
-                        'results.csv',
-                        `${title.replace(/,/g, ".")},${price},${img}\n`,
-                        function (err) {
-                            if (err) throw err;
-                        }
-                    );
+                if (product.title !== "Null") {
+                  dbConnection('products', async (db) => {
+                    await db.insertOne(product);
+                    console.log('Product inserted:', product);
+                  });
+                  
+                    // fs.appendFile(
+                    //     'results.csv',
+                    //     `${product.title.replace(/,/g, ".")},${product.price},${product.img}\n`,
+                    //     function (err) {
+                    //         if (err) throw err;
+                    //     }
+                    // );
+                //     dbConnection('products',async(db)=>{
+                //         const item =await db.insertOne(product)
+                //         console.log(item,product)               
+                //     }).then(data=> console.log(data)).catch(err=>console.log('err',err))
                 }
             }
-
+            
             const nextButton = await page.$("ul.a-pagination > li.a-last > a");
             if (nextButton) {
                 await Promise.all([

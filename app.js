@@ -71,7 +71,8 @@ app.use((req, res, next) => {
 // Error Handler (4 Parameter)
 app.use((error, req, res, next) => {
     console.log(error);
-    res.status(error.statusCode).json({
+    const statusCode = error.statusCode || 500; // Use a default status code of 500 if not provided
+    res.status(statusCode).json({
         status: false,
         message: error.message,
     });
