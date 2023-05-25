@@ -1,4 +1,4 @@
-const { dbConnection } = require('../configurations')
+const { connectDB } = require('../configurations')
 const { userValidator, loginValidator } = require('../validators')
 const { hashSync, compareSync } = require('bcryptjs')
 
@@ -8,7 +8,7 @@ class User {
     }
 
     save(cb) {
-        dbConnection('users', async (collection) => {
+        connectDB('users', async (collection) => {
             try {
                 const hashedPassword = hashSync(this.userData.password, 12)
                 this.userData.password = hashedPassword
@@ -32,7 +32,7 @@ class User {
 
     isExist() {
         return new Promise((resolve, reject) => {
-            dbConnection('users', async (collection) => {
+            connectDB('users', async (collection) => {
                 try {
                     const user = await collection.findOne({
                         '$or': [
@@ -85,7 +85,7 @@ class User {
             }
 
             // // find user
-            // dbConnection('users', async (collection) => {
+            // connectDB('users', async (collection) => {
             //     try {
             //         const dbResult = await collection.aggregate([
             //             {

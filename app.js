@@ -47,7 +47,7 @@ const middleware = require('./middlewares');
 const routes = require('./routes/index');
 
 const app = express();
-const port = 3000;
+const port = 8000;
 
 process.on('unhandledRejection', (reason) => {
     process.exit(1);
@@ -81,3 +81,5 @@ app.use((error, req, res, next) => {
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);
 });
+
+module.exports = app

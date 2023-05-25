@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const puppeteer = require('puppeteer');
-const {dbConnection}=require('../configurations')
+const {connectDB}=require('../configurations')
 
 const sleep = (milliseconds) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -65,10 +65,10 @@ router.post('/', async (req, res, next) => {
                 } catch (error) {}
 
                 if (product.title !== "Null") {
-                  dbConnection('products', async (db) => {
-                    await db.insertOne(product);
-                    console.log('Product inserted:', product);
-                  });
+                  // connectDB('products', async (db) => {
+                  //   await db.insertOne(product);
+                  //   console.log('Product inserted:', product);
+                  // });
                   
                     // fs.appendFile(
                     //     'results.csv',
@@ -77,10 +77,11 @@ router.post('/', async (req, res, next) => {
                     //         if (err) throw err;
                     //     }
                     // );
-                //     dbConnection('products',async(db)=>{
-                //         const item =await db.insertOne(product)
-                //         console.log(item,product)               
-                //     }).then(data=> console.log(data)).catch(err=>console.log('err',err))
+                    connectDB(async(db)=>{
+                        
+                        const item =await db.collection('products').insertOne(product)
+                        console.log(item,product)               
+                    }).then(data=> console.log(data)).catch(err=>console.log('err',err))
                 }
             }
             

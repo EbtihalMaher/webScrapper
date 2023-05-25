@@ -2,7 +2,7 @@
 // const router = express.Router();
 // const fs = require('fs');
 // const puppeteer = require('puppeteer');
-// const {dbConnection}=require('../configurations')
+// const {connectDB}=require('../configurations')
 
 // const sleep = (milliseconds) => {
 //     return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -72,7 +72,7 @@
 //                             if (err) throw err;
 //                         }
 //                     );
-//                 //     dbConnection('products',async(db)=>{
+//                 //     connectDB('products',async(db)=>{
 //                 //         const item =await db.insertOne(product)
 //                 //         console.log(item,product)               
 //                 //     }).then(data=> console.log(data)).catch(err=>console.log('err',err))
@@ -109,7 +109,7 @@
 
 // const _uri = process.env.MONGODB_URI
 
-// const dbConnection = ( cb) => {
+// const connectDB = ( cb) => {
 //     return MongoClient.connect(process.env.MONGODB_URI)
 //       .then(async (client) => {
 //         const database = client.db("webScrapper");
@@ -130,4 +130,4 @@
 //     //     .catch( e=> console.log(e));
 // }
 
-// module.exports = dbConnection
+// module.exports = connectDB
