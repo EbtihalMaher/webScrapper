@@ -45,6 +45,7 @@ const createError = require('http-errors');
 
 const middleware = require('./middlewares');
 const routes = require('./routes/index');
+const cors = require('cors');
 
 const app = express();
 const port = 8000;
@@ -63,6 +64,7 @@ middleware.global(app);
  */
 app.use('/', routes);
 
+app.use(cors());
 // Route not found error handler
 app.use((req, res, next) => {
     next(createError(404));

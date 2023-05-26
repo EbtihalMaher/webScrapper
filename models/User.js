@@ -7,37 +7,58 @@ class User {
         this.userData = userData;
     }
 
-    save(cb) {
-        connectDB('users', async (collection) => {
+    save(db) {
+        
+        connectDB(async (cb) => {
             try {
                 const hashedPassword = hashSync(this.userData.password, 12)
                 this.userData.password = hashedPassword
-
-                await collection.insertOne(this.userData)
+                await cb.collection('users').insertOne(this.userData)
                     .then(result => {
-                        cb({
+                        db({
                             status: true,
                             _user_id: result.insertedId
                         })
                     })
-
             } catch (err) {
-                cb({
+                db({
                     status: false,
                     message: err.message
                 })
             }
+
+
         })
+        // connectDB('users', async (collection) => {
+        //     try {
+        //         const hashedPassword = hashSync(this.userData.password, 12)
+        //         this.userData.password = hashedPassword
+
+        //         await collection.insertOne(this.userData)
+        //             .then(result => {
+        //                 cb({
+        //                     status: true,
+        //                     _user_id: result.insertedId
+        //                 })
+        //             })
+
+        //     } catch (err) {
+        //         cb({
+        //             status: false,
+        //             message: err.message
+        //         })
+        //     }
+        // })
     }
 
     isExist() {
         return new Promise((resolve, reject) => {
-            connectDB('users', async (collection) => {
+            (async (cb) => {
                 try {
-                    const user = await collection.findOne({
+                    const user =await cb.collection('users').findOne({
                         '$or': [
-                            {username: this.userData.username},
-                            {email: this.userData.email}
+                            { username: this.userData.username },
+                            { email: this.userData.email }
                         ]
                     })
 
@@ -58,9 +79,11 @@ class User {
                             })
                         }
                     }
+
                 } catch (err) {
                     reject(err)
                 }
+
             })
         })
     }

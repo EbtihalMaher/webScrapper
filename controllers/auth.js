@@ -51,7 +51,9 @@ const signup = (req, res, next) => {
 
 
 const login = (req, res, next) => {
+    
     User.login(req.body)
+        
         .then(result => {
             if (result instanceof Error) {
                 next(createError(result.statusCode, result.message))
@@ -65,13 +67,14 @@ const login = (req, res, next) => {
                     username: result.username
                 }, secretKey
             )
-
+            
             res.status(200).json({
                 status: true,
                 token: token
             })
         })
         .catch(err => {
+            console.log(err)
             next(createError(err.statusCode, err.message))
         })
 }

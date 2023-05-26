@@ -20,6 +20,7 @@ const productRouter = require('./product');
 const authRouter = require('./auth');
 const scraperRouter = require('./scraper');
 
+
 router.get('/', (req, res, next) => {
     res.status(200).json({
         status: true,
@@ -30,5 +31,6 @@ router.get('/', (req, res, next) => {
 router.use('/products', productRouter);
 router.use('/auth', authRouter);
 router.use('/scraper', scraperRouter);
+
 
 module.exports = router;

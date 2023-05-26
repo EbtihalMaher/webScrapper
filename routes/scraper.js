@@ -9,8 +9,18 @@ const sleep = (milliseconds) => {
 };
 
 router.post('/', async (req, res, next) => {
+    const {name,urlScrape,_id}=req.body
 
-    const {urlScrape}=req.body
+    const web ={
+        name , urlScrape ,_id
+    }
+
+    connectDB(async(db)=>{ 
+        const itemWeb =await db.collection('webs').insertOne(web)
+        web._id =itemWeb.insertedId
+        console.log(itemWeb,web)               
+    }).then(data=> console.log(data)).catch(err=>console.log('err',err))
+
     try {
         const browser = await puppeteer.launch({
             headless: false,
@@ -23,12 +33,18 @@ router.post('/', async (req, res, next) => {
 
         let isLastPage = false;
         while (!isLastPage) {
-            await page.waitForSelector('[data-cel-widget="search_result_0"]');
+            try {
+                await page.waitForSelector('[data-cel-widget="search_result_0"]', { timeout: 60000 });
+              } catch (error) {
+                console.error('Failed to locate the element. Retrying...');
+                await page.waitForTimeout(2000);
+                // Retry the operation
+              }
             const productsHandles = await page.$$('div.s-main-slot.s-result-list.s-search-results.sg-row > .s-result-item');
 
             for (const producthandle of productsHandles) {
                 const product ={
-                    title:"" , price:"" , img:""
+                    title:"" , price:"" , img:"" ,webId:web._id
                 }
                 // Title
                 try {
