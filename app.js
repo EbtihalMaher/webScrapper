@@ -50,6 +50,8 @@ const cors = require('cors');
 const app = express();
 const port = 8000;
 
+app.use(cors());
+
 process.on('unhandledRejection', (reason) => {
     process.exit(1);
 });
@@ -64,7 +66,7 @@ middleware.global(app);
  */
 app.use('/', routes);
 
-app.use(cors());
+
 // Route not found error handler
 app.use((req, res, next) => {
     next(createError(404));
