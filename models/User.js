@@ -51,6 +51,8 @@ class User {
         // })
     }
 
+    
+
     isExist() {
         return new Promise((resolve, reject) => {
             (async (cb) => {

@@ -133,16 +133,13 @@ router.get('/:id', async (req, res, next) => {
 
     try {
         connectDB(async (db) => {
-            const products = await db
-                .collection('products')
-                .find({ webId: webId.toString() })
-                .toArray();
-            console.log(products); // Check if products are retrieved correctly
+            const products = await db.collection('products').find(webId);
             res.status(200).json({
                 status: true,
-                products,
+                products: products,
             });
-        });
+            
+        })
     } catch (error) {
         next(error);
     }

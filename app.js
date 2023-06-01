@@ -51,7 +51,6 @@ const app = express();
 const port = 8000;
 
 app.use(cors());
-
 process.on('unhandledRejection', (reason) => {
     process.exit(1);
 });
